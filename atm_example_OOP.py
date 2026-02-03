@@ -41,7 +41,7 @@ class AtmMachine:
         user_pin = input("Enter the pin to create: ")
         self.pin = user_pin
         
-        user_balance = input("Enter balance: ")
+        user_balance = int(input("Enter balance: "))
         self.balance = user_balance
         print("Pin succesfully created")
         self.menu()
@@ -71,10 +71,10 @@ class AtmMachine:
     def withdraw(self):
         user_pin = input("Enter your pin:")
         if(user_pin == self.pin):
-            amount = input("Enter the amount to withdraw: ")
+            amount = int(input("Enter the amount to withdraw: "))
             if amount <= self.balance:
-                self.balance-=amount
-                print("withdraw succesful")
+                self.balance=self.balance - amount
+                print("withdraw succesful,remaining balance ",self.balance)
             else:
                 print("Enter amount lesser or equal to balance : ",self.balance)
         else:
