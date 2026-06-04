@@ -32,7 +32,6 @@ class AtmMachine:
         elif user_input == "4":
             #withdraw
             self.withdraw()
-            pass
         else:
             exit
         
