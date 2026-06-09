@@ -1,9 +1,14 @@
 class Book:
     def __init__(self,title,author,isbn):
-        self.title = title
-        self.author = author
-        self.isbn = isbn
-        self.is_checked_out = False
+        self._title = title
+        self._author = author
+        self._isbn = isbn
+        self._is_checked_out = False
+        
+
+    @property
+    def title(self):
+        
 
     def checkout(self):
         self.is_checked_out = True
