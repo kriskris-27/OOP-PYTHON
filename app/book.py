@@ -8,8 +8,19 @@ class Book:
 
     @property
     def title(self):
-        
+        return self._title
 
+    @title.setter
+    def title(self,value):
+        if len(value) < 3:
+            raise ValueError("The title must be atleast three")
+        self._title = value
+
+    @property
+    
+    def is_checked_out(self):
+        return self._is_checked_out
+        
     def checkout(self):
         self.is_checked_out = True
         print(f"'{self.title}' has been checked out")
