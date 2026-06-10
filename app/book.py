@@ -22,16 +22,16 @@ class Book:
         return self._is_checked_out
         
     def checkout(self):
-        self.is_checked_out = True
+        self._is_checked_out = True
         print(f"'{self.title}' has been checked out")
 
     def return_book(self):
-        self.is_checked_out = False
+        self._is_checked_out = False
         print(f"'{self.title}' has been returned")
 
     def display_info(self):
         status = "Checked out" if self.is_checked_out else "Available"
         print(f"Title: {self.title}")
-        print(f"Author: {self.author}")
-        print(f"ISBN: {self.isbn}")
+        print(f"Author: {self._author}")
+        print(f"ISBN: {self._isbn}")
         print(f"Status: {status}")
