@@ -1,3 +1,4 @@
+from app.audiobook import Audiobook
 from app.book import Book
 from app.ebook import Ebook
 
@@ -21,9 +22,28 @@ book1.display_info()
 
 # Test EBook (inherits from Book)
 
-print("\n=== EBook ===")
+# print("\n=== EBook ===")
 
-ebook1=Ebook("Advanced Python", "Jane Doe", "789-012", 5.2, "PDF")
-ebook1.checkout()
-ebook1.display_info()
-ebook1.download()
+# ebook1=Ebook("Advanced Python", "Jane Doe", "789-012", 5.2, "PDF")
+# ebook1.checkout()
+# ebook1.display_info()
+# ebook1.download()
+
+books = [
+    Book("Python Basics", "John Smith", "111-111"),
+    Ebook("Advanced Python", "Jane Doe", "222-222", 5.2, "PDF"),
+    Audiobook("Python Mastery", "Bob Johnson", "333-333", 8.5, "Alice Williams")
+]
+ 
+print("=== Polymorphism Demo ===")
+
+for book in books:
+    print(f"\nProcessing: {book.title}")
+    book.checkout()
+    book.display_info()
+
+
+    if isinstance(book,Ebook):
+        book.download()
+    elif isinstance(book,Audiobook):
+        book.play()
