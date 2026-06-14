@@ -20,6 +20,27 @@ class BankAccount:
         self._balance = value
         print("Added sucessfully")
 
+    
+    def deposit(self,amount):
+        if amount < 0:
+            raise ValueError("Amount cannot be negative")
+        
+        self.balance +=amount
+        print(f"Sucessfully debited")
+
+    def withdraw(self,amount):
+        if amount < 0:
+            raise ValueError("Amount cannot be negative")
+        if amount >self.balance:
+            raise ValueError("Not enough balance")
+
+        self.balance -=amount
+        print("Withdraw Sucessful")
+
+    def get_balance(self):
+        return self.balance
+
+
 
 
 
