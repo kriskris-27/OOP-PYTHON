@@ -40,7 +40,21 @@ class BankAccount:
     def get_balance(self):
         return self.balance
 
+    def display_info(self) -> None:
+        print(f"Account: {self.account_number} | Owner: {self.owner_name} | Balance: ${self.balance:.2f}")
 
+class SavingsAccount(BankAccount):
+    def __init__(self,account_number,owner_name,initial_balance,interest_rate):
+        super().__init__(account_number,owner_name,initial_balance)
 
+        self.interest_rate = interest_rate
 
+    def apply_interest(self):
+        interest_earned = self.balance * self.interest_rate
+
+        if interest_earned > 0:
+            self.deposit(interest_earned)
+            print("Interest added to balance")
+        else:
+            print("No interest applied (balance is zero).")
 
