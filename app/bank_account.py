@@ -58,3 +58,20 @@ class SavingsAccount(BankAccount):
         else:
             print("No interest applied (balance is zero).")
 
+
+class CheckingAccount(BankAccount):
+    def __init__(self,account_number,owner_name,initial_balance,overdraft_limit):
+        super().__init__(account_number,owner_name,initial_balance)
+
+        self.overdraft_limit = overdraft_limit
+
+
+    def withdraw(self,amount):
+        predicted_balance = self.balance - amount
+
+        if predicted_balance < -self.overdraft_limit:
+            raise ValueError("Transaction declined: amount is over the value")
+
+        self._balance = predicted_balance
+        print("Withdraw sucessful") 
+        self.display_info()
