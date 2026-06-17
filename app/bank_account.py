@@ -18,7 +18,7 @@ class BankAccount:
             raise ValueError("Catastrophic State Blocked: Account balance cannot be negative.")
          
         self._balance = value
-        print("Added sucessfully")
+        # print("Added sucessfully")
 
     
     def deposit(self,amount):
@@ -36,6 +36,8 @@ class BankAccount:
 
         self.balance -=amount
         print("Withdraw Sucessful")
+        self.display_info()
+
 
     def get_balance(self):
         return self.balance
@@ -75,3 +77,19 @@ class CheckingAccount(BankAccount):
         self._balance = predicted_balance
         print("Withdraw sucessful") 
         self.display_info()
+
+
+def process_account_transactions(acc_list,action,amount):
+    for acc in acc_list:
+        try:
+            if action.lower() == "withdraw":
+                acc.withdraw(amount)
+            
+            elif action.lower() == "deposit":
+                acc.deposit(amount)
+        
+        except ValueError as error:
+            print(f" -> [TRANSACTION FAILED]: {error}")
+        print("-"*65)
+
+
