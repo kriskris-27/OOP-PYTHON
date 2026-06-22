@@ -27,15 +27,21 @@ class Employee:
             raise ValueError("Percentage cant be negative")
 
 class Manager(Employee):
-    def __init__(self,name,id,initial_salary,department,bonus):
-        super().__init__(name,id,initial_salary)
-
+    def __init__(self, name, id, initial_salary, department, bonus):
+        super().__init__(name, id, initial_salary)
         self.department = department
 
-        if self.bonus<0:
-            raise ValueError("bonus cant be negative")
+        # FIX: Check the incoming variable 'bonus', not 'self.bonus'
+        if bonus < 0:
+            raise ValueError("Bonus cannot be negative")
         
         self.bonus = bonus
+
+    # --- METHOD OVERRIDE ---
+    def calculate_annual_salary(self):
+        """Overrides parent method to include the manager's annual bonus."""
+        # Call the parent method (salary * 12) and add the bonus
+        return super().calculate_annual_salary() + self.bonus
 
     
 
