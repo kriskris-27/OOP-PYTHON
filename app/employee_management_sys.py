@@ -31,7 +31,7 @@ class Manager(Employee):
         super().__init__(name, id, initial_salary)
         self.department = department
 
-        # FIX: Check the incoming variable 'bonus', not 'self.bonus'
+        
         if bonus < 0:
             raise ValueError("Bonus cannot be negative")
         
@@ -40,9 +40,15 @@ class Manager(Employee):
     # --- METHOD OVERRIDE ---
     def calculate_annual_salary(self):
         """Overrides parent method to include the manager's annual bonus."""
-        # Call the parent method (salary * 12) and add the bonus
         return super().calculate_annual_salary() + self.bonus
 
     
 
+class Developer(Employee):
+    def __init__(self,name,id,initial_salary,programming_language):
+        super().__init__(name,id,initial_salary)
+
+        self.programming_language = programming_language
+
+        
 
