@@ -65,15 +65,19 @@ class Intern(Employee):
 
 
 def process_payroll(list_of_employees):
-    total_company_spend=0 
+    # Local trackers that exist only while the function runs
+    total_company_spend = 0 
 
     for employee in list_of_employees:
-        print(f"EMP ID : {employee.id}\n EMP NAME : {employee.name}")
+        print(f"EMP ID : {employee.id}\nEMP NAME : {employee.name}")
         
+        # Polymorphism in action!
         spent = employee.calculate_annual_salary()
-        total_company_spend+=spent
+        total_company_spend += spent
+        print(f"Annual Salary: ₹{spent:,.2f}")
+        print("-" * 30)
 
-    print(f"total company spent : {total_company_spend}")
+    print(f"Total Company Spent: ₹{total_company_spend:,.2f}")
 
 
 
