@@ -49,3 +49,32 @@ class Vehicle:
             
         # Code level: 'self.daily_rate' fires the property getter to fetch the price vault
         return self.daily_rate * days
+
+class Car(Vehicle):
+    """Child class representing a specialized Car configuration."""
+
+    def __init__(self, make: str, model: str, year: int, daily_rate: float, num_doors: int, transmission_type: str):
+        # Step 1: Pass core specifications up to the Vehicle base class
+        super().__init__(make, model, year, daily_rate)
+        
+        # Step 2: Validate and initialize attributes unique to a Car
+        if num_doors <= 0:
+            raise ValueError("A car must have at least 1 door.")
+            
+        self.num_doors = num_doors
+        self.transmission_type = transmission_type  # e.g., "Automatic" or "Manual"
+
+
+class Motorcycle(Vehicle):
+    """Child class representing a specialized Motorcycle configuration."""
+
+    def __init__(self, make: str, model: str, year: int, daily_rate: float, engine_cc: int, has_helmet: bool):
+        # Step 1: Pass core specifications up to the Vehicle base class
+        super().__init__(make, model, year, daily_rate)
+        
+        # Step 2: Validate and initialize attributes unique to a Motorcycle
+        if engine_cc <= 0:
+            raise ValueError("Engine displacement (CC) must be a positive integer.")
+            
+        self.engine_cc = engine_cc
+        self.has_helmet = has_helmet  # Safety configuration flag: True/False
