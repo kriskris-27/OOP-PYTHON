@@ -78,3 +78,31 @@ class Motorcycle(Vehicle):
             
         self.engine_cc = engine_cc
         self.has_helmet = has_helmet  # Safety configuration flag: True/False
+
+class Truck(Vehicle):
+    """Child class representing a specialized heavy-duty Truck configuration."""
+
+    def __init__(self, make: str, model: str, year: int, daily_rate: float, cargo_capacity: float, requires_license: bool):
+        # Step 1: Pass core metrics up to the Vehicle base class
+        super().__init__(make, model, year, daily_rate)
+        
+        # Step 2: Validate and initialize attributes unique to a Truck
+        if cargo_capacity <= 0:
+            raise ValueError("Cargo capacity (in tons) must be greater than zero.")
+            
+        self.cargo_capacity = cargo_capacity      # e.g., capacity in tons (e.g., 3.5, 10.0)
+        self.requires_license = requires_license  # Safety flag: True if it requires a heavy vehicle commercial license
+
+    # --- METHOD OVERRIDE ---
+    def calculate_rental_cost(self, days: int) -> float:
+        """
+        Overrides the parent's cost calculation.
+        Adds a flat heavy-vehicle maintenance fee based on cargo capacity.
+        """
+        # Step A: Get the standard baseline cost from the Vehicle parent (daily_rate * days)
+        base_cost = super().calculate_rental_cost(days)
+        
+        # Step B: Apply a heavy equipment surcharge (e.g., ₹500 per ton of capacity)
+        heavy_surcharge = self.cargo_capacity * 500.0
+        
+        return base_cost + heavy_surcharge
