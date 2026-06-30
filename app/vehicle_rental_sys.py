@@ -106,3 +106,41 @@ class Truck(Vehicle):
         heavy_surcharge = self.cargo_capacity * 500.0
         
         return base_cost + heavy_surcharge
+
+def generate_fleet_rental_manifest(vehicle_fleet: list[Vehicle], rental_days: int):
+    """
+    Processes a batch of vehicles polymorphically.
+    Calculates rental quotes and checks out each vehicle uniformly, 
+    allowing each sub-class to execute its own specialized pricing rules.
+    """
+    print(f"\n{'='*20} GENERATING DAILY RENTAL MANIFEST {'='*20}\n")
+    
+    total_expected_revenue = 0.0
+
+    for vehicle in vehicle_fleet:
+        print(f"Vehicle: {vehicle.year} {vehicle.make} {vehicle.model}")
+        print(f" -> Standard Daily Rate: ₹{vehicle.daily_rate:,.2f}")
+        
+        try:
+            # 1. POLYMORPHIC CALL (State Transition):
+            # Executes the standard parent state machine check
+            vehicle.rent()
+            
+            # 2. POLYMORPHIC CALL (Math Override):
+            # Python dynamically evaluates what class this object belongs to:
+            # - If it's a Truck, it runs the custom cargo capacity surcharge math.
+            # - If it's a Car or Motorcycle, it runs the standard base calculation.
+            billable_cost = vehicle.calculate_rental_cost(rental_days)
+            
+            print(f" -> Approved Rental Duration: {rental_days} days")
+            print(f" -> Final Calculated Invoice: ₹{billable_cost:,.2f}")
+            
+            total_expected_revenue += billable_cost
+
+        except ValueError as error:
+            # Catching state or rate validation issues cleanly without crashing the fleet file
+            print(f" -> [RENTAL FAILED]: {error}")
+            
+        print("-" * 70)
+
+    print(f"TOTAL EXPECTED BATCH REVENUE : ₹{total_expected_revenue:,.2f}\n")
