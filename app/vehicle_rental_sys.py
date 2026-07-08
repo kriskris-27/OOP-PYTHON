@@ -43,3 +43,25 @@ class Vehicle:
         if days <= 0:
             raise ValueError("Rental duration must be at least 1 day.")
         return self.daily_rate * days
+
+
+class Car(Vehicle):
+    def __init__(self, make, model, year, daily_rate, is_rented,num_doors,transmission_type):
+        super().__init__(make, model, year, daily_rate, is_rented)
+
+        self.num_doors = num_doors
+        self.transmission_type = transmission_type
+
+
+class Motorcycle(Vehicle):
+    def __init__(self, make, model, year, daily_rate, engine_cc, has_helmet):
+        super().__init__(make, model, year, daily_rate)
+        self.engine_cc = engine_cc
+        self.has_helmet = has_helmet
+
+
+class Truck(Vehicle):
+    def __init__(self, make, model, year, daily_rate, cargo_capacity, requires_license):
+        super().__init__(make, model, year, daily_rate)
+        self.cargo_capacity = cargo_capacity
+        self.requires_license = requires_license
