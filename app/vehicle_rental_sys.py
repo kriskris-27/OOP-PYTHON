@@ -65,3 +65,10 @@ class Truck(Vehicle):
         super().__init__(make, model, year, daily_rate)
         self.cargo_capacity = cargo_capacity
         self.requires_license = requires_license
+
+    
+    def calculate_rental_cost(self, days):
+        base_cost =  super().calculate_rental_cost(days)
+        cargo_surcharge = self.cargo_capacity * 500
+
+        return base_cost + cargo_surcharge
