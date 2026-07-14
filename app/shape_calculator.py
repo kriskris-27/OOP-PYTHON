@@ -27,6 +27,24 @@ class Square(Rectangle):
         super().__init__(color,side,side)
         self.side=side
 
+class Circle(Shape):
+    def __init__(self,color,radius):
+        super().__init__(color)
+        self.radius = radius
+
+    def calculate_area(self):
+        return 3.14*self.radius*self.radius
+
+class Triangle(Shape):
+    def __init__(self,color,base,height):
+        super().__init__(color)
+        self.base=base
+        self.height=height
+    
+    def calculate_area(self):
+        return 0.5 * self.base * self.height
+
+
 
 def polymorphic_calculate_area(shape_lis):
     total_area=0
