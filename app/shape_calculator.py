@@ -4,8 +4,8 @@ class Shape:
 
     
     # --- THE ABSTRACT METHOD DEFINITION ---
-    def calculate_area(self):
-        raise NotImplementedError("Architectural Rule Violation: You must implement calculate_area() in the child class!")
+    # def calculate_area(self):
+    #     raise NotImplementedError("Architectural Rule Violation: You must implement calculate_area() in the child class!")
 
     
     def display_method(self):
