@@ -26,3 +26,22 @@ class Product:
             raise ValueError("Stock cant be assigned negative value")
         self._stock = value
     
+
+    def purchase(self,quantity):
+        if quantity <=0:
+            raise ValueError("Purchase value should need to greater than zero")
+        if quantity >self.stock:
+            raise ValueError(f"Insuffient stock for {self.name} .Availble stock {self.stock}")
+        
+        self.stock -= quantity
+        return self.price*quantity
+
+    def restock(self,quantity):
+        if quantity<=0:
+            raise ValueError("Restock quantity must be positive")
+
+        self.stock +=quantity
+        print(f"[Restock] {self.name}: Added {quantity} units. New stock: {self.stock}")
+
+    def is_availble(self):
+        return self.stock > 0
