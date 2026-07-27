@@ -45,3 +45,30 @@ class Product:
 
     def is_availble(self):
         return self.stock > 0
+
+
+class PhysicalProduct(Product):
+    def __init__(self, name: str, price: float, stock: int, sku: str, weight: float, shipping_cost: float):
+        super().__init__(name, price, stock, sku)
+        self.weight = weight
+        self.shipping_cost = shipping_cost
+
+    def purchase(self, quantity: int) -> float:
+        # Reduces stock and adds fixed shipping cost per item ordered
+        base_cost = super().purchase(quantity)
+        total_shipping = self.shipping_cost * quantity
+        print(f"[Purchased Physical] {quantity}x {self.name} (+${total_shipping:.2f} shipping)")
+        return base_cost + total_shipping
+
+
+class DigitalProduct(Product):
+    def __init__(self, name: str, price: float, stock: int, sku: str, download_url: str, file_size: float):
+        super().__init__(name, price, stock, sku)
+        self.download_url = download_url
+        self.file_size = file_size
+
+    def purchase(self, quantity: int) -> float:
+        # Digital products ignore inventory stock checks (assuming unlimited downloads)
+        cost = self.price * quantity
+        print(f"[Purchased Digital] {quantity}x {self.name} -> Download URL: {self.download_url}")
+        return cost
