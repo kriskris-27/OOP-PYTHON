@@ -72,3 +72,43 @@ class DigitalProduct(Product):
         cost = self.price * quantity
         print(f"[Purchased Digital] {quantity}x {self.name} -> Download URL: {self.download_url}")
         return cost
+
+class SubscriptionProduct(Product):
+    def __init__(self, name: str, price: float, stock: int, sku: str, billing_cycle: str, duration: int):
+        super().__init__(name, price, stock, sku)
+        self.billing_cycle = billing_cycle  # e.g., 'Monthly'
+        self.duration = duration            # e.g., 12 months
+
+    def purchase(self, quantity: int) -> float:
+        # Subscriptions deduct inventory seat licenses and calculate cost over duration
+        super().purchase(quantity)
+        total_cost = self.price * self.duration * quantity
+        print(f"[Purchased Subscription] {quantity}x {self.name} ({self.billing_cycle} for {self.duration} cycles)")
+        return total_cost
+
+
+# --- Composition & Polymorphic Processing ---
+
+class Order:
+    def __init__(self):
+        # Composition: Order contains a list of Product instances
+        self.items: list[tuple[Product, int]] = []
+
+    def add_item(self, product: Product, quantity: int = 1):
+        if not product.is_available() and not isinstance(product, DigitalProduct):
+            print(f"Cannot add {product.name}: Out of stock!")
+            return
+        self.items.append((product, quantity))
+
+    def checkout((self) -> float:
+        """Uses polymorphism to process mixed products seamlessly."""
+        print("--- Processing Order Checkout ---")
+        total_amount = 0.0
+        
+        for product, quantity in self.items:
+            # Polymorphic call: purchase() behaves differently depending on the concrete class
+            cost = product.purchase(quantity)
+            total_amount += cost
+            
+        print(f"--- Checkout Complete! Total Order Price: ${total_amount:.2f} ---\n")
+        return total_amount
